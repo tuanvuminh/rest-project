@@ -25,7 +25,7 @@ public class DatabaseConnection {
         Properties props = new Properties();
 
         try {
-            props.load(new FileInputStream("C:\\Users\\w137337\\IdeaProjects\\rest-project\\data\\database.properties"));
+            props.load(new FileInputStream("C:\\Users\\w137337\\IdeaProjects\\rest-project\\src\\main\\resources\\database.properties"));
 
             BasicDataSource dataSource = new BasicDataSource();
             dataSource.setUrl(requireNonNull(props.getProperty("url")));
