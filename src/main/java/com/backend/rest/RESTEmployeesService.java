@@ -1,7 +1,8 @@
-package com.backend.service.services;
+package com.backend.rest;
 
 import com.backend.model.Employee;
 import com.backend.model.RESTResponse;
+import com.backend.service.services.EmployeesService;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.inject.Default;
 import jakarta.inject.Inject;
