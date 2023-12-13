@@ -2,8 +2,8 @@ package com.backend.db;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
@@ -12,29 +12,30 @@ import static java.util.Objects.requireNonNull;
 
 public class DatabaseConnection {
 
+    private static final String FILE_PATH = "/database.properties";
+    private static final Properties props = new Properties();
+
     static {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
+            InputStream fileInputStream = DatabaseConnection.class.getResourceAsStream(FILE_PATH);
+            props.load(fileInputStream);
+        } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static synchronized Connection getConnection() {
-
-        Properties props = new Properties();
-
+    public static Connection getConnection() {
         try {
-            props.load(new FileInputStream("C:\\Users\\w137337\\IdeaProjects\\rest-project\\src\\main\\resources\\database.properties"));
-
             BasicDataSource dataSource = new BasicDataSource();
+
             dataSource.setUrl(requireNonNull(props.getProperty("url")));
             dataSource.setUsername(requireNonNull(props.getProperty("user")));
             dataSource.setPassword(requireNonNull(props.getProperty("password")));
 
             return dataSource.getConnection();
 
-        } catch (IOException | SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
