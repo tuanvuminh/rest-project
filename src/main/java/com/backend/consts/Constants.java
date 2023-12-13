@@ -1,4 +1,4 @@
-package backend.consts;
+package com.backend.consts;
 
 public interface Constants {
     int INDEX_ZERO = 0;

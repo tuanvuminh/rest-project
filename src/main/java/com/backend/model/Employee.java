@@ -1,4 +1,4 @@
-package backend.model;
+package com.backend.model;
 
 public class Employee {
 

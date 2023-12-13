@@ -1,8 +1,8 @@
-package backend.service.services;
+package com.backend.service.services;
 
-import backend.db.DatabaseConnection;
-import backend.model.Employee;
-import backend.consts.Constants;
+import com.backend.db.DatabaseConnection;
+import com.backend.model.Employee;
+import com.backend.consts.Constants;
 
 import java.sql.*;
 import java.util.ArrayList;

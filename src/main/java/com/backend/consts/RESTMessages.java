@@ -1,4 +1,4 @@
-package backend.consts;
+package com.backend.consts;
 
 public enum RESTMessages {
     SUCCESSFUL_SEARCH_EMPLOYEES,

@@ -1,15 +1,15 @@
-package backend.service.services;
+package com.backend.service.services;
 
+import com.backend.model.Employee;
+import com.backend.model.RESTResponse;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.inject.Default;
 import jakarta.ws.rs.core.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import backend.consts.RESTMessages;
-import backend.model.Employee;
-import backend.model.RESTResponse;
-import backend.service.interfaces.IRESTEmployeesService;
-import backend.service.loader.Message;
+import com.backend.consts.RESTMessages;
+import com.backend.service.interfaces.IRESTEmployeesService;
+import com.backend.service.loader.Message;
 
 import java.util.List;
 

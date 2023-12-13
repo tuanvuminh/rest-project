@@ -1,7 +1,7 @@
-package backend.service.interfaces;
+package com.backend.service.interfaces;
 
+import com.backend.model.Employee;
 import jakarta.ws.rs.core.Response;
-import backend.model.Employee;
 
 public interface IRESTEmployeesService {
 

@@ -1,4 +1,4 @@
-package backend.db;
+package com.backend.db;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 

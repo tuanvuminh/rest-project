@@ -1,4 +1,4 @@
-package backend.rest;
+package com.backend.rest;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
@@ -6,8 +6,8 @@ import jakarta.inject.Named;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import backend.model.Employee;
-import backend.service.interfaces.IRESTEmployeesService;
+import com.backend.model.Employee;
+import com.backend.service.interfaces.IRESTEmployeesService;
 
 @Named
 @RequestScoped
