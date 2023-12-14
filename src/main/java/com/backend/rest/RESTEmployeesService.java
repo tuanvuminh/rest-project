@@ -2,6 +2,7 @@ package com.backend.rest;
 
 import com.backend.model.Employee;
 import com.backend.model.RESTResponse;
+import com.backend.helper.MessageLoader;
 import com.backend.service.services.EmployeesService;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.inject.Default;
@@ -11,7 +12,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.backend.consts.RESTMessages;
 import com.backend.service.interfaces.IRESTEmployeesService;
-import com.backend.service.loader.Message;
 
 import java.util.List;
 
@@ -22,11 +22,12 @@ public class RESTEmployeesService implements IRESTEmployeesService {
     private static final Logger LOG = LogManager.getLogger(RESTEmployeesService.class);
 
     @Inject
-    Message message;
+    MessageLoader message;
 
     @Override
     public Response getEmployees() {
 
+        LOG.debug("Received getEmployees request.");
         RESTResponse response = new RESTResponse();
 
         List<Employee> employees = EmployeesService.getEmployees();
@@ -38,11 +39,10 @@ public class RESTEmployeesService implements IRESTEmployeesService {
         }
 
         for (Employee employee : employees) {
-
             response.addDataItem(employee);
         }
-
         LOG.debug("Found employees: {}", employees);
+
         response.setMessageText(message.get(RESTMessages.SUCCESSFUL_SEARCH_EMPLOYEES));
         return Response.status(Response.Status.OK).entity(response).build();
     }
@@ -61,15 +61,16 @@ public class RESTEmployeesService implements IRESTEmployeesService {
             return Response.status(Response.Status.NOT_FOUND).entity(response).build();
         }
         LOG.debug("Found employee: {}", employee);
+
         response.addDataItem(employee);
         response.setMessageText(message.get(RESTMessages.SUCCESSFUL_DETAIL_EMPLOYEE));
-
         return Response.status(Response.Status.OK).entity(response).build();
     }
 
     @Override
     public Response insertEmployee(Employee employee) {
 
+        LOG.debug("Received insertEmployee request with body: {}", employee);
         RESTResponse response = new RESTResponse();
 
         Integer id = EmployeesService.insertEmployee(employee);
@@ -84,13 +85,13 @@ public class RESTEmployeesService implements IRESTEmployeesService {
 
         response.addDataItem(newEmployee);
         response.setMessageText(message.get(RESTMessages.SUCCESSFUL_CREATION_EMPLOYEE));
-
         return Response.status(Response.Status.OK).entity(response).build();
     }
 
     @Override
     public Response updateEmployee(int id, Employee employee) {
 
+        LOG.debug("Received updateEmployee request with id: {}.", id);
         RESTResponse response = new RESTResponse();
 
         Integer rows = EmployeesService.updateEmployee(id, employee);
@@ -105,13 +106,13 @@ public class RESTEmployeesService implements IRESTEmployeesService {
 
         response.addDataItem(updatedEmployee);
         response.setMessageText(message.get(RESTMessages.SUCCESSFUL_UPDATE_EMPLOYEE));
-
         return Response.status(Response.Status.OK).entity(response).build();
     }
 
     @Override
     public Response deleteEmployee(int id) {
 
+        LOG.debug("Received deleteEmployee request with id: {}", id);
         RESTResponse response = new RESTResponse();
 
         Integer rows = EmployeesService.deleteEmployee(id);
@@ -122,8 +123,8 @@ public class RESTEmployeesService implements IRESTEmployeesService {
             return Response.status(Response.Status.NOT_FOUND).entity(response).build();
         }
         LOG.debug("Employee deleted.");
-        response.setMessageText(message.get(RESTMessages.SUCCESSFUL_DELETE));
 
+        response.setMessageText(message.get(RESTMessages.SUCCESSFUL_DELETE));
         return Response.status(Response.Status.OK).entity(response).build();
     }
 }

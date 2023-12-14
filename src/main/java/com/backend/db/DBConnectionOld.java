@@ -10,7 +10,7 @@ import java.util.Properties;
 
 import static java.util.Objects.requireNonNull;
 
-public class DatabaseConnection {
+public class DBConnectionOld {
 
     private static final String FILE_PATH = "/database.properties";
     private static final Properties props = new Properties();
@@ -18,7 +18,7 @@ public class DatabaseConnection {
     static {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            InputStream fileInputStream = DatabaseConnection.class.getResourceAsStream(FILE_PATH);
+            InputStream fileInputStream = DBConnectionOld.class.getResourceAsStream(FILE_PATH);
             props.load(fileInputStream);
         } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();

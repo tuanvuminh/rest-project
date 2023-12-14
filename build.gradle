@@ -35,6 +35,9 @@ dependencies {
     // Log4j
     implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.22.0'
 
+    // HikariCP
+    implementation 'com.zaxxer:HikariCP:4.0.3'
+
     // Apache Commons
     implementation 'org.apache.commons:commons-dbcp2:2.11.0'
 
