@@ -43,7 +43,6 @@ public class InternalEmployeesService {
                 );
                 employees.add(employee);
             }
-
             return employees;
 
         } catch (SQLException e) {
@@ -83,7 +82,6 @@ public class InternalEmployeesService {
                     rs.getString("department"),
                     rs.getInt("salary")
             );
-
             return employee;
 
         } catch (SQLException e) {
@@ -121,7 +119,6 @@ public class InternalEmployeesService {
                     return generatedKeys.getInt(Constants.INDEX_ONE);
                 }
             }
-
             return null;
 
         } catch (SQLException e) {
@@ -152,8 +149,8 @@ public class InternalEmployeesService {
             if (!resultSet.next()) {
                 return null;
             }
-
             PreparedStatement update = connection.prepareStatement(sqlUpdate);
+
             update.setFetchSize(1);
             update.setString(Constants.INDEX_ONE, employee.getFirstName());
             update.setString(Constants.INDEX_TWO, employee.getLastName());
@@ -190,8 +187,8 @@ public class InternalEmployeesService {
             if (!resultSet.next()) {
                 return null;
             }
-
             PreparedStatement delete = connection.prepareStatement(sqlDelete);
+
             delete.setFetchSize(1);
             delete.setInt(Constants.INDEX_ONE, id);
 
