@@ -1,6 +1,6 @@
 package com.backend.service.services;
 
-import com.backend.db.DBConnection;
+import com.backend.db.DBConnectionV2;
 import com.backend.model.Employee;
 import com.backend.consts.Constants;
 
@@ -14,7 +14,7 @@ public class InternalEmployeesService {
 
         String sql = "SELECT * FROM employees";
 
-        try (Connection connection = DBConnection.getConnection()) {
+        try (Connection connection = DBConnectionV2.getConnection()) {
 
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setFetchSize(1);
@@ -46,7 +46,7 @@ public class InternalEmployeesService {
 
         String sql = "SELECT * FROM employees WHERE id = ?";
 
-        try (Connection connection = DBConnection.getConnection()) {
+        try (Connection connection = DBConnectionV2.getConnection()) {
 
             PreparedStatement ps = connection.prepareStatement(sql);
 
@@ -80,7 +80,7 @@ public class InternalEmployeesService {
 
         String sql = "INSERT INTO employees (first_name, last_name, email, department, salary) VALUES (?, ?, ?, ?, ?)";
 
-        try (Connection connection = DBConnection.getConnection()) {
+        try (Connection connection = DBConnectionV2.getConnection()) {
 
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setFetchSize(1);
@@ -113,7 +113,7 @@ public class InternalEmployeesService {
         String sqlSelect = "SELECT id FROM employees WHERE id = ?";
         String sqlUpdate = "UPDATE employees SET first_name = ?, last_name = ?, email = ?, department = ?, salary = ? WHERE id = ?";
 
-        try (Connection connection = DBConnection.getConnection()) {
+        try (Connection connection = DBConnectionV2.getConnection()) {
 
             PreparedStatement select = connection.prepareStatement(sqlSelect);
             select.setFetchSize(1);
@@ -145,7 +145,7 @@ public class InternalEmployeesService {
         String sqlSelect = "SELECT id FROM employees WHERE id = ?";
         String sqlDelete = "DELETE FROM employees WHERE id = ?";
 
-        try (Connection connection = DBConnection.getConnection()) {
+        try (Connection connection = DBConnectionV2.getConnection()) {
 
             PreparedStatement select = connection.prepareStatement(sqlSelect);
             select.setFetchSize(1);
