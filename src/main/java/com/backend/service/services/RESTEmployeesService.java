@@ -1,19 +1,19 @@
-package com.backend.rest;
+package com.backend.service.services;
 
 import com.backend.model.Employee;
 import com.backend.model.RESTResponse;
 import com.backend.helper.MessageLoader;
-import com.backend.service.services.EmployeesService;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.inject.Default;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.backend.consts.RESTMessages;
 import com.backend.service.interfaces.IRESTEmployeesService;
 
 import java.util.List;
+
+import static com.backend.consts.RESTMessages.*;
 
 @Default
 @RequestScoped
@@ -34,7 +34,7 @@ public class RESTEmployeesService implements IRESTEmployeesService {
 
         if (employees == null) {
             LOG.debug("Employees not found.");
-            response.setMessageText(message.get(RESTMessages.UNSUCCESSFUL_SEARCH_EMPLOYEES));
+            response.setMessageText(message.get(UNSUCCESSFUL_SEARCH_EMPLOYEES));
             return Response.status(Response.Status.NOT_FOUND).entity(response).build();
         }
 
@@ -43,7 +43,7 @@ public class RESTEmployeesService implements IRESTEmployeesService {
         }
         LOG.debug("Found employees: {}", employees);
 
-        response.setMessageText(message.get(RESTMessages.SUCCESSFUL_SEARCH_EMPLOYEES));
+        response.setMessageText(message.get(SUCCESSFUL_SEARCH_EMPLOYEES));
         return Response.status(Response.Status.OK).entity(response).build();
     }
 
@@ -57,13 +57,13 @@ public class RESTEmployeesService implements IRESTEmployeesService {
 
         if (employee == null) {
             LOG.debug("Employee not found.");
-            response.setMessageText(message.get(RESTMessages.UNSUCCESSFUL_DETAIL_EMPLOYEE));
+            response.setMessageText(message.get(UNSUCCESSFUL_DETAIL_EMPLOYEE));
             return Response.status(Response.Status.NOT_FOUND).entity(response).build();
         }
         LOG.debug("Found employee: {}", employee);
 
         response.addDataItem(employee);
-        response.setMessageText(message.get(RESTMessages.SUCCESSFUL_DETAIL_EMPLOYEE));
+        response.setMessageText(message.get(SUCCESSFUL_DETAIL_EMPLOYEE));
         return Response.status(Response.Status.OK).entity(response).build();
     }
 
@@ -77,14 +77,14 @@ public class RESTEmployeesService implements IRESTEmployeesService {
 
         if (id == null) {
             LOG.debug("Employee not created.");
-            response.setMessageText(message.get(RESTMessages.UNSUCCESSFUL_CREATION_EMPLOYEE));
+            response.setMessageText(message.get(UNSUCCESSFUL_CREATION_EMPLOYEE));
             return Response.status(Response.Status.BAD_REQUEST).entity(response).build();
         }
         Employee newEmployee = EmployeesService.getEmployee(id);
         LOG.debug("Created new employee: {}", newEmployee);
 
         response.addDataItem(newEmployee);
-        response.setMessageText(message.get(RESTMessages.SUCCESSFUL_CREATION_EMPLOYEE));
+        response.setMessageText(message.get(SUCCESSFUL_CREATION_EMPLOYEE));
         return Response.status(Response.Status.OK).entity(response).build();
     }
 
@@ -98,14 +98,14 @@ public class RESTEmployeesService implements IRESTEmployeesService {
 
         if (rows == null) {
             LOG.debug("Employee not updated.");
-            response.setMessageText(message.get(RESTMessages.UNSUCCESSFUL_UPDATE_EMPLOYEE));
+            response.setMessageText(message.get(UNSUCCESSFUL_UPDATE_EMPLOYEE));
             return Response.status(Response.Status.BAD_REQUEST).entity(response).build();
         }
         Employee updatedEmployee = EmployeesService.getEmployee(id);
         LOG.debug("Updated employee: {}", updatedEmployee);
 
         response.addDataItem(updatedEmployee);
-        response.setMessageText(message.get(RESTMessages.SUCCESSFUL_UPDATE_EMPLOYEE));
+        response.setMessageText(message.get(SUCCESSFUL_UPDATE_EMPLOYEE));
         return Response.status(Response.Status.OK).entity(response).build();
     }
 
@@ -119,12 +119,12 @@ public class RESTEmployeesService implements IRESTEmployeesService {
 
         if (rows == null) {
             LOG.debug("Employee not deleted.");
-            response.setMessageText(message.get(RESTMessages.UNSUCCESSFUL_DELETE));
+            response.setMessageText(message.get(UNSUCCESSFUL_DELETE));
             return Response.status(Response.Status.NOT_FOUND).entity(response).build();
         }
         LOG.debug("Employee deleted.");
 
-        response.setMessageText(message.get(RESTMessages.SUCCESSFUL_DELETE));
+        response.setMessageText(message.get(SUCCESSFUL_DELETE));
         return Response.status(Response.Status.OK).entity(response).build();
     }
 }
