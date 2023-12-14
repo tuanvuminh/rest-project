@@ -10,6 +10,13 @@ import java.util.Properties;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Utility class for obtaining database connections using Apache DBCP2 connection pool.
+ *
+ * This class provides a method to obtain a connection from the Apache DBCP2 connection pool configured based on the
+ * properties loaded from the "database.properties" file. It ensures that the required JDBC driver is loaded during
+ * class initialization.
+ */
 public class DBConnectionV1 {
 
     private static final String FILE_PATH = "/database.properties";
@@ -25,6 +32,12 @@ public class DBConnectionV1 {
         }
     }
 
+    /**
+     * Retrieves a database connection from the Apache DBCP2 connection pool.
+     *
+     * @return A Connection object representing a database connection
+     * @throws RuntimeException If a SQLException occurs during the connection retrieval
+     */
     public static Connection getConnection() {
         try {
             BasicDataSource dataSource = new BasicDataSource();

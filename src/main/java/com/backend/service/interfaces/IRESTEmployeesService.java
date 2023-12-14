@@ -3,6 +3,9 @@ package com.backend.service.interfaces;
 import com.backend.model.Employee;
 import jakarta.ws.rs.core.Response;
 
+/**
+ * Interface for RESTful operations related to employees.
+ */
 public interface IRESTEmployeesService {
 
     /**

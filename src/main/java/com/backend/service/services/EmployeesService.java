@@ -4,12 +4,22 @@ import com.backend.model.Employee;
 
 import java.util.List;
 
+/**
+ * Adapter class providing simplified access to employee-related operations.
+ *
+ * This class adapts the interface of InternalEmployeesService to provide a simplified and consistent API for
+ * interacting with employee-related operations. Clients can use the methods in this class without directly
+ * interacting with the internal details of InternalEmployeesService.
+ */
 public class EmployeesService {
 
     private EmployeesService() {
         super();
     }
 
+    /**
+     * Returns a new instance of the InternalEmployeesService class.
+     */
     private static InternalEmployeesService getService() {
         return new InternalEmployeesService();
     }

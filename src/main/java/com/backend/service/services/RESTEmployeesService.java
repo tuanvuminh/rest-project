@@ -15,6 +15,11 @@ import java.util.List;
 
 import static com.backend.consts.RESTMessages.*;
 
+/**
+ * Service implementation for managing employee data through RESTful operations.
+ *
+ * This service class provides methods to retrieve, insert, update, and delete employee information using RESTful web services.
+ */
 @Default
 @RequestScoped
 public class RESTEmployeesService implements IRESTEmployeesService {
@@ -24,6 +29,9 @@ public class RESTEmployeesService implements IRESTEmployeesService {
     @Inject
     MessageLoader message;
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public Response getEmployees() {
 
@@ -47,6 +55,9 @@ public class RESTEmployeesService implements IRESTEmployeesService {
         return Response.status(Response.Status.OK).entity(response).build();
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public Response getEmployee(int id) {
 
@@ -67,6 +78,9 @@ public class RESTEmployeesService implements IRESTEmployeesService {
         return Response.status(Response.Status.OK).entity(response).build();
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public Response insertEmployee(Employee employee) {
 
@@ -88,6 +102,9 @@ public class RESTEmployeesService implements IRESTEmployeesService {
         return Response.status(Response.Status.OK).entity(response).build();
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public Response updateEmployee(int id, Employee employee) {
 
@@ -109,6 +126,9 @@ public class RESTEmployeesService implements IRESTEmployeesService {
         return Response.status(Response.Status.OK).entity(response).build();
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     public Response deleteEmployee(int id) {
 

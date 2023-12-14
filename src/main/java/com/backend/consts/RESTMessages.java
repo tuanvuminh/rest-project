@@ -1,5 +1,11 @@
 package com.backend.consts;
 
+/**
+ * Enum representing messages for REST operations.
+ *
+ * This enum contains constant values representing messages for successful and unsuccessful outcomes
+ * of various REST operations related to employee management.
+ */
 public enum RESTMessages {
     SUCCESSFUL_SEARCH_EMPLOYEES,
     SUCCESSFUL_DETAIL_EMPLOYEE,
