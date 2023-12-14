@@ -17,7 +17,7 @@ import java.util.Properties;
  */
 @Default
 @RequestScoped
-public class Message {
+public class MessageLoaderV1 {
 
     private static final String FILE_PATH = "/messages.properties";
     private Properties properties;
@@ -25,7 +25,7 @@ public class Message {
     /**
      * Constructs a new Message instance and loads properties from the "messages.properties" file.
      */
-    public Message() {
+    public MessageLoaderV1() {
         this.properties = loadProperties();
     }
 
@@ -36,7 +36,7 @@ public class Message {
      */
     private Properties loadProperties() {
         Properties props = new Properties();
-        try (InputStream fileInputStream = Message.class.getResourceAsStream(FILE_PATH)) {
+        try (InputStream fileInputStream = MessageLoaderV1.class.getResourceAsStream(FILE_PATH)) {
             props.load(fileInputStream);
         } catch (IOException e) {
             e.printStackTrace();

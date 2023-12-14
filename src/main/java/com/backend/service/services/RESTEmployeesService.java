@@ -2,7 +2,7 @@ package com.backend.service.services;
 
 import com.backend.model.Employee;
 import com.backend.model.RESTResponse;
-import com.backend.helper.MessageLoader;
+import com.backend.helper.MessageLoaderV2;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.inject.Default;
 import jakarta.inject.Inject;
@@ -27,7 +27,7 @@ public class RESTEmployeesService implements IRESTEmployeesService {
     private static final Logger LOG = LogManager.getLogger(RESTEmployeesService.class);
 
     @Inject
-    MessageLoader message;
+    MessageLoaderV2 message;
 
     /**
      * @inheritDoc

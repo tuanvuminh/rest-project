@@ -15,7 +15,7 @@ import java.util.ResourceBundle;
  */
 @Default
 @RequestScoped
-public class MessageLoader {
+public class MessageLoaderV2 {
 
     ResourceBundle bundle = ResourceBundle.getBundle("messages", Locale.ENGLISH);
 
