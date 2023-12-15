@@ -5,6 +5,8 @@ import com.zaxxer.hikari.HikariDataSource;
 
 import java.util.ResourceBundle;
 
+import static com.backend.consts.Constants.BUNDLE_DATABASE;
+
 /**
  * Utility class for configuring and providing a HikariDataSource for database connections.
  *
@@ -14,7 +16,6 @@ import java.util.ResourceBundle;
  */
 public class HikariDBConfig {
 
-    private static final String BUNDLE_NAME = "database";
     private static HikariDataSource dataSource;
 
     /**
@@ -44,7 +45,7 @@ public class HikariDBConfig {
      */
     private static HikariConfig loadProperties() {
 
-        ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_NAME);
+        ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_DATABASE);
         HikariConfig config = new HikariConfig();
 
         config.setJdbcUrl(bundle.getString("jdbcUrl"));

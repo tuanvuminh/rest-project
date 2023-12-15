@@ -2,11 +2,12 @@ package com.backend.service.services;
 
 import com.backend.db.DBConnectionV2;
 import com.backend.model.Employee;
-import com.backend.consts.Constants;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.backend.consts.Constants.*;
 
 /**
  * Service class providing internal operations for managing employee data in the database.
@@ -66,7 +67,7 @@ public class InternalEmployeesService {
             PreparedStatement ps = connection.prepareStatement(sql);
 
             ps.setFetchSize(1);
-            ps.setInt(Constants.INDEX_ONE, id);
+            ps.setInt(INDEX_ONE, id);
 
             ResultSet rs = ps.executeQuery();
 
@@ -105,18 +106,18 @@ public class InternalEmployeesService {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setFetchSize(1);
 
-            ps.setString(Constants.INDEX_ONE, employee.getFirstName());
-            ps.setString(Constants.INDEX_TWO, employee.getLastName());
-            ps.setString(Constants.INDEX_THREE, employee.getEmail());
-            ps.setString(Constants.INDEX_FOUR, employee.getDepartment());
-            ps.setInt(Constants.INDEX_FIVE, employee.getSalary());
+            ps.setString(INDEX_ONE, employee.getFirstName());
+            ps.setString(INDEX_TWO, employee.getLastName());
+            ps.setString(INDEX_THREE, employee.getEmail());
+            ps.setString(INDEX_FOUR, employee.getDepartment());
+            ps.setInt(INDEX_FIVE, employee.getSalary());
 
             int rows = ps.executeUpdate();
 
             if (rows > 0) {
                 ResultSet generatedKeys = ps.getGeneratedKeys();
                 if (generatedKeys.next()) {
-                    return generatedKeys.getInt(Constants.INDEX_ONE);
+                    return generatedKeys.getInt(INDEX_ONE);
                 }
             }
             return null;
@@ -143,7 +144,7 @@ public class InternalEmployeesService {
 
             PreparedStatement select = connection.prepareStatement(sqlSelect);
             select.setFetchSize(1);
-            select.setInt(Constants.INDEX_ONE, id);
+            select.setInt(INDEX_ONE, id);
             ResultSet resultSet = select.executeQuery();
 
             if (!resultSet.next()) {
@@ -152,11 +153,11 @@ public class InternalEmployeesService {
             PreparedStatement update = connection.prepareStatement(sqlUpdate);
 
             update.setFetchSize(1);
-            update.setString(Constants.INDEX_ONE, employee.getFirstName());
-            update.setString(Constants.INDEX_TWO, employee.getLastName());
-            update.setString(Constants.INDEX_THREE, employee.getEmail());
-            update.setString(Constants.INDEX_FOUR, employee.getDepartment());
-            update.setInt(Constants.INDEX_FIVE, employee.getSalary());
+            update.setString(INDEX_ONE, employee.getFirstName());
+            update.setString(INDEX_TWO, employee.getLastName());
+            update.setString(INDEX_THREE, employee.getEmail());
+            update.setString(INDEX_FOUR, employee.getDepartment());
+            update.setInt(INDEX_FIVE, employee.getSalary());
 
             return update.executeUpdate();
 
@@ -181,7 +182,7 @@ public class InternalEmployeesService {
 
             PreparedStatement select = connection.prepareStatement(sqlSelect);
             select.setFetchSize(1);
-            select.setInt(Constants.INDEX_ONE, id);
+            select.setInt(INDEX_ONE, id);
             ResultSet resultSet = select.executeQuery();
 
             if (!resultSet.next()) {
@@ -190,7 +191,7 @@ public class InternalEmployeesService {
             PreparedStatement delete = connection.prepareStatement(sqlDelete);
 
             delete.setFetchSize(1);
-            delete.setInt(Constants.INDEX_ONE, id);
+            delete.setInt(INDEX_ONE, id);
 
             return delete.executeUpdate();
 

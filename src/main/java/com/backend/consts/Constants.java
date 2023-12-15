@@ -8,4 +8,6 @@ public interface Constants {
     int INDEX_FOUR = 4;
     int INDEX_FIVE = 5;
     int INDEX_SIX = 6;
+    String BUNDLE_DATABASE = "database";
+    String BUNDLE_MESSAGES = "messages";
 }

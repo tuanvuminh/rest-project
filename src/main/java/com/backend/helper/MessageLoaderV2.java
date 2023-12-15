@@ -7,6 +7,8 @@ import jakarta.enterprise.inject.Default;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import static com.backend.consts.Constants.BUNDLE_MESSAGES;
+
 /**
  * Utility class for loading messages from a resource bundle.
  *
@@ -17,7 +19,7 @@ import java.util.ResourceBundle;
 @RequestScoped
 public class MessageLoaderV2 {
 
-    ResourceBundle bundle = ResourceBundle.getBundle("messages", Locale.ENGLISH);
+    ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_MESSAGES, Locale.ENGLISH);
 
     /**
      * Retrieves the message associated with the given key from the resource bundle.
