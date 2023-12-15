@@ -3,9 +3,7 @@ package com.backend.db;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
+import java.util.ResourceBundle;
 
 /**
  * Utility class for configuring and providing a HikariDataSource for database connections.
@@ -16,7 +14,7 @@ import java.util.Properties;
  */
 public class HikariDBConfig {
 
-    private static final String FILE_PATH = "/database.properties";
+    private static final String BUNDLE_NAME = "database";
     private static HikariDataSource dataSource;
 
     /**
@@ -31,27 +29,32 @@ public class HikariDBConfig {
      * @return The HikariDataSource instance configured for database connections
      */
     public static synchronized HikariDataSource getDataSource() {
+
         if (dataSource == null) {
-            HikariConfig config = new HikariConfig(loadProperties());
+            HikariConfig config = loadProperties();
             dataSource = new HikariDataSource(config);
         }
         return dataSource;
     }
 
     /**
-     * Loads properties from a file.
+     * Loads configuration from a file.
      *
      * @return The loaded properties
      */
-    private static Properties loadProperties() {
+    private static HikariConfig loadProperties() {
 
-        Properties properties = new Properties();
-        try (InputStream input = HikariDBConfig.class.getResourceAsStream(FILE_PATH)) {
-            properties.load(input);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_NAME);
+        HikariConfig config = new HikariConfig();
 
-        return properties;
+        config.setJdbcUrl(bundle.getString("jdbcUrl"));
+        config.setUsername(bundle.getString("username"));
+        config.setPassword(bundle.getString("password"));
+        config.setDriverClassName(bundle.getString("driverClassName"));
+        config.setMaximumPoolSize(Integer.parseInt(bundle.getString("maximumPoolSize")));
+        config.setConnectionTimeout(Integer.parseInt(bundle.getString("connectionTimeout")));
+        config.setIdleTimeout(Integer.parseInt(bundle.getString("idleTimeout")));
+
+        return config;
     }
 }
