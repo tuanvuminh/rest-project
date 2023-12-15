@@ -10,7 +10,7 @@ import com.backend.model.Employee;
 import com.backend.service.interfaces.IRESTEmployeesService;
 
 /**
- * RESTful resource for managing employee data.
+ * RESTful interface for managing employee data.
  *
  * This class provides endpoints for retrieving, inserting, updating, and deleting employee information.
  */
