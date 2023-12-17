@@ -32,7 +32,7 @@ public class HikariDBConfig {
     public static synchronized HikariDataSource getDataSource() {
 
         if (dataSource == null) {
-            HikariConfig config = loadProperties();
+            HikariConfig config = loadConfiguration();
             dataSource = new HikariDataSource(config);
         }
         return dataSource;
@@ -41,9 +41,9 @@ public class HikariDBConfig {
     /**
      * Loads configuration from a file.
      *
-     * @return The loaded properties
+     * @return The loaded configuration
      */
-    private static HikariConfig loadProperties() {
+    private static HikariConfig loadConfiguration() {
 
         ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_DATABASE);
         HikariConfig config = new HikariConfig();

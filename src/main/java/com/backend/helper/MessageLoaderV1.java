@@ -20,13 +20,13 @@ import java.util.Properties;
 public class MessageLoaderV1 {
 
     private static final String FILE_PATH = "/messages.properties";
-    private Properties properties;
+    private Properties props;
 
     /**
      * Constructs a new Message instance and loads properties from the "messages.properties" file.
      */
     public MessageLoaderV1() {
-        this.properties = loadProperties();
+        this.props = loadProperties();
     }
 
     /**
@@ -51,7 +51,7 @@ public class MessageLoaderV1 {
      * @return The message associated with the key, or null if the key is not found
      */
     public String get(RESTMessages message) {
-        return properties.getProperty(String.valueOf(message));
+        return props.getProperty(String.valueOf(message));
     }
 
 //    private static final String FILE_PATH = "/messages.properties";
