@@ -8,9 +8,9 @@ import java.util.List;
 /**
  * Adapter class providing simplified access to employee-related operations.
  *
- * This class adapts the interface of InternalEmployeesService to provide a simplified and consistent API for
+ * This class adapts the interface of EmployeesService to provide a simplified and consistent API for
  * interacting with employee-related operations. Clients can use the methods in this class without directly
- * interacting with the internal details of InternalEmployeesService.
+ * interacting with the internal details of EmployeesService.
  */
 public class EmployeesServiceAdapter {
 
@@ -19,7 +19,7 @@ public class EmployeesServiceAdapter {
     }
 
     /**
-     * Returns a new instance of the InternalEmployeesService class.
+     * Returns a new instance of the EmployeesService class.
      */
     private static EmployeesService getService() {
         return new EmployeesService();
