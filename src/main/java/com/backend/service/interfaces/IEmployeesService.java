@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Interface for internal operations for managing employee data in the database.
  */
-public interface IInternalEmployeesService {
+public interface IEmployeesService {
 
     /**
      * Retrieves all employees from the database.

@@ -1,7 +1,7 @@
 package com.backend.helper.adapter;
 
 import com.backend.model.Employee;
-import com.backend.service.services.InternalEmployeesService;
+import com.backend.service.services.EmployeesService;
 
 import java.util.List;
 
@@ -21,8 +21,8 @@ public class EmployeesServiceAdapter {
     /**
      * Returns a new instance of the InternalEmployeesService class.
      */
-    private static InternalEmployeesService getService() {
-        return new InternalEmployeesService();
+    private static EmployeesService getService() {
+        return new EmployeesService();
     }
 
     public static List<Employee> getEmployees() {

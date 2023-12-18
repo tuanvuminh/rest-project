@@ -2,7 +2,7 @@ package com.backend.service.services;
 
 import com.backend.db.DBConnectionV2;
 import com.backend.model.Employee;
-import com.backend.service.interfaces.IInternalEmployeesService;
+import com.backend.service.interfaces.IEmployeesService;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import static com.backend.consts.Constants.*;
  *
  * This class contains methods to interact with the database, including retrieving, inserting, updating, and deleting employee records.
  */
-public class InternalEmployeesService implements IInternalEmployeesService {
+public class EmployeesService implements IEmployeesService {
 
     /**
      * @inheritDoc
