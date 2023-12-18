@@ -10,6 +10,5 @@ public interface Constants {
     int INDEX_SIX = 6;
     String BUNDLE_DATABASE = "database";
     String BUNDLE_MESSAGES = "messages";
-
-    String X509CERTIFICATE = "jakarta.servlet.request.X509Certificate";
+    String X509_CERTIFICATE = "jakarta.servlet.request.X509Certificate";
 }

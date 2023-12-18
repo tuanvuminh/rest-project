@@ -2,6 +2,7 @@ package com.backend.service.services;
 
 import com.backend.db.DBConnectionV2;
 import com.backend.model.Employee;
+import com.backend.service.interfaces.IInternalEmployeesService;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,13 +15,12 @@ import static com.backend.consts.Constants.*;
  *
  * This class contains methods to interact with the database, including retrieving, inserting, updating, and deleting employee records.
  */
-public class InternalEmployeesService {
+public class InternalEmployeesService implements IInternalEmployeesService {
 
     /**
-     * Retrieves all employees from the database.
-     *
-     * @return List of Employee objects representing all employees in the database
+     * @inheritDoc
      */
+    @Override
     public List<Employee> getEmployees() {
 
         String sql = "SELECT * FROM employees";
@@ -53,11 +53,9 @@ public class InternalEmployeesService {
     }
 
     /**
-     * Retrieves an employee from the database based on the provided ID.
-     *
-     * @param id ID of the employee to retrieve
-     * @return Employee object representing the employee with the specified ID, or null if not found
+     * @inheritDoc
      */
+    @Override
     public Employee getEmployee(int id) {
 
         String sql = "SELECT * FROM employees WHERE id = ?";
@@ -92,11 +90,9 @@ public class InternalEmployeesService {
     }
 
     /**
-     * Inserts a new employee into the database.
-     *
-     * @param employee Employee object representing the employee to be inserted
-     * @return The ID of the newly inserted employee, or null if insertion failed
+     * @inheritDoc
      */
+    @Override
     public Integer insertEmployee(Employee employee) {
 
         String sql = "INSERT INTO employees (first_name, last_name, email, department, salary) VALUES (?, ?, ?, ?, ?)";
@@ -129,12 +125,9 @@ public class InternalEmployeesService {
     }
 
     /**
-     * Updates an existing employee in the database based on the provided ID.
-     *
-     * @param id       ID of the employee to update
-     * @param employee Employee object representing the updated employee information
-     * @return The number of rows affected by the update, or null if update failed
+     * @inheritDoc
      */
+    @Override
     public Integer updateEmployee(int id, Employee employee) {
 
         String sqlSelect = "SELECT id FROM employees WHERE id = ?";
@@ -168,11 +161,9 @@ public class InternalEmployeesService {
     }
 
     /**
-     * Deletes an employee from the database based on the provided ID.
-     *
-     * @param id ID of the employee to be deleted
-     * @return The number of rows affected by the deletion, or null if deletion failed
+     * @inheritDoc
      */
+    @Override
     public Integer deleteEmployee(int id) {
 
         String sqlSelect = "SELECT id FROM employees WHERE id = ?";

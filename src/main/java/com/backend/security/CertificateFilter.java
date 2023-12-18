@@ -12,7 +12,7 @@ import java.io.*;
 import java.security.cert.X509Certificate;
 import java.util.Date;
 
-import static com.backend.consts.Constants.X509CERTIFICATE;
+import static com.backend.consts.Constants.X509_CERTIFICATE;
 
 @Provider
 public class CertificateFilter implements ContainerRequestFilter {
@@ -21,30 +21,29 @@ public class CertificateFilter implements ContainerRequestFilter {
 
     @Override
     public void filter(ContainerRequestContext context) throws IOException {
+
         LOG.traceEntry();
+        X509Certificate cert = (X509Certificate) context.getProperty(X509_CERTIFICATE);
 
-        X509Certificate[] certs = (X509Certificate[]) context.getProperty(X509CERTIFICATE);
-
-        if (certs != null && validateCertificate(certs)) {
+        if (cert != null && validateCertificate(cert)) {
             LOG.debug("Certificate is valid.");
         } else {
-            RESTResponse errorResponse = new RESTResponse();
-            errorResponse.setMessageText("The provided certificate is not valid.");
+            RESTResponse response = new RESTResponse();
+            response.setMessageText("The provided certificate is not valid.");
 
             LOG.debug("Certificate is not valid.");
-            context.abortWith(Response.status(Response.Status.FORBIDDEN).entity(errorResponse.toErrorResponse()).build());
+            context.abortWith(Response.status(Response.Status.FORBIDDEN).entity(response.toErrorResponse()).build());
         }
         LOG.traceExit();
     }
 
-    private boolean validateCertificate(X509Certificate[] certs) {
-
+    private boolean validateCertificate(X509Certificate certificate) {
         try {
-            for (X509Certificate certificate : certs) {
-                Date currentDateTime = new Date();
-                certificate.checkValidity(currentDateTime);
-            }
-            return true;
+            Date currentDateTime = new Date();
+            certificate.checkValidity(currentDateTime);
+
+            String subject = certificate.getSubjectX500Principal().getName();
+            return subject.equalsIgnoreCase("root");
 
         } catch (Exception e) {
             LOG.error("Certificate validation failed {}", e);

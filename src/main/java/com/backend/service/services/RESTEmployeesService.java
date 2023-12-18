@@ -1,8 +1,9 @@
 package com.backend.service.services;
 
+import com.backend.helper.adapter.EmployeesServiceAdapter;
 import com.backend.model.Employee;
 import com.backend.model.RESTResponse;
-import com.backend.helper.MessageLoaderV2;
+import com.backend.helper.loader.MessageLoaderV2;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.inject.Default;
 import jakarta.inject.Inject;
@@ -38,7 +39,7 @@ public class RESTEmployeesService implements IRESTEmployeesService {
         LOG.debug("Received getEmployees request.");
         RESTResponse response = new RESTResponse();
 
-        List<Employee> employees = EmployeesService.getEmployees();
+        List<Employee> employees = EmployeesServiceAdapter.getEmployees();
 
         if (employees == null) {
             LOG.debug("Employees not found.");
@@ -64,7 +65,7 @@ public class RESTEmployeesService implements IRESTEmployeesService {
         LOG.debug("Received id: {}", id);
         RESTResponse response = new RESTResponse();
 
-        Employee employee = EmployeesService.getEmployee(id);
+        Employee employee = EmployeesServiceAdapter.getEmployee(id);
 
         if (employee == null) {
             LOG.debug("Employee not found.");
@@ -87,14 +88,14 @@ public class RESTEmployeesService implements IRESTEmployeesService {
         LOG.debug("Received insertEmployee request with body: {}", employee);
         RESTResponse response = new RESTResponse();
 
-        Integer id = EmployeesService.insertEmployee(employee);
+        Integer id = EmployeesServiceAdapter.insertEmployee(employee);
 
         if (id == null) {
             LOG.debug("Employee not created.");
             response.setMessageText(message.get(UNSUCCESSFUL_CREATION_EMPLOYEE));
             return Response.status(Response.Status.BAD_REQUEST).entity(response).build();
         }
-        Employee newEmployee = EmployeesService.getEmployee(id);
+        Employee newEmployee = EmployeesServiceAdapter.getEmployee(id);
         LOG.debug("Created new employee: {}", newEmployee);
 
         response.addDataItem(newEmployee);
@@ -111,14 +112,14 @@ public class RESTEmployeesService implements IRESTEmployeesService {
         LOG.debug("Received updateEmployee request with id: {}.", id);
         RESTResponse response = new RESTResponse();
 
-        Integer rows = EmployeesService.updateEmployee(id, employee);
+        Integer rows = EmployeesServiceAdapter.updateEmployee(id, employee);
 
         if (rows == null) {
             LOG.debug("Employee not updated.");
             response.setMessageText(message.get(UNSUCCESSFUL_UPDATE_EMPLOYEE));
             return Response.status(Response.Status.BAD_REQUEST).entity(response).build();
         }
-        Employee updatedEmployee = EmployeesService.getEmployee(id);
+        Employee updatedEmployee = EmployeesServiceAdapter.getEmployee(id);
         LOG.debug("Updated employee: {}", updatedEmployee);
 
         response.addDataItem(updatedEmployee);
@@ -135,7 +136,7 @@ public class RESTEmployeesService implements IRESTEmployeesService {
         LOG.debug("Received deleteEmployee request with id: {}", id);
         RESTResponse response = new RESTResponse();
 
-        Integer rows = EmployeesService.deleteEmployee(id);
+        Integer rows = EmployeesServiceAdapter.deleteEmployee(id);
 
         if (rows == null) {
             LOG.debug("Employee not deleted.");

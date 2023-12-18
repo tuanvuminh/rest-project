@@ -1,6 +1,7 @@
-package com.backend.service.services;
+package com.backend.helper.adapter;
 
 import com.backend.model.Employee;
+import com.backend.service.services.InternalEmployeesService;
 
 import java.util.List;
 
@@ -11,9 +12,9 @@ import java.util.List;
  * interacting with employee-related operations. Clients can use the methods in this class without directly
  * interacting with the internal details of InternalEmployeesService.
  */
-public class EmployeesService {
+public class EmployeesServiceAdapter {
 
-    private EmployeesService() {
+    private EmployeesServiceAdapter() {
         super();
     }
 
