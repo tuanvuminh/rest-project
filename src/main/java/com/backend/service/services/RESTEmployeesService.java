@@ -17,9 +17,9 @@ import java.util.List;
 import static com.backend.consts.RESTMessages.*;
 
 /**
- * Service implementation for managing employee data through RESTful operations.
+ * Service implementation for managing employee data through REST operations.
  *
- * This service class provides methods to retrieve, insert, update, and delete employee information using RESTful web services.
+ * This service class provides methods to retrieve, insert, update, and delete employee information using REST web services.
  */
 @Default
 @RequestScoped
