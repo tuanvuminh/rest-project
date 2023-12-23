@@ -1,17 +1,23 @@
 package com.backend.rest;
 
+import com.backend.security.ClientCertificateVerifier;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import com.backend.model.Employee;
 import com.backend.service.interfaces.IRESTEmployeesService;
 
+import java.io.IOException;
+import java.security.cert.X509Certificate;
+
 /**
  * REST interface for managing employee data.
- *
+ * <p>
  * This class provides endpoints for retrieving, inserting, updating, and deleting employee information.
  */
 @Named
@@ -20,10 +26,22 @@ import com.backend.service.interfaces.IRESTEmployeesService;
 public class RESTEmployees {
 
     /**
-     * Service for REST Employees interface
+     * HttpServletRequest for accessing client's request details.
+     */
+    @Context
+    private HttpServletRequest request;
+
+    /**
+     * Service for REST Employees interface.
      */
     @Inject
     IRESTEmployeesService service;
+
+    /**
+     * ClientCertificateVerifier for verifying client certificates.
+     */
+    @Inject
+    ClientCertificateVerifier verifier;
 
     /**
      * Method maps the GET method. Retrieves all employees.
@@ -33,6 +51,7 @@ public class RESTEmployees {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getEmployees() {
+        verifier.filter(request);
         return service.getEmployees();
     }
 
@@ -46,6 +65,7 @@ public class RESTEmployees {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getEmployee(@PathParam("id") int id) {
+        verifier.filter(request);
         return service.getEmployee(id);
     }
 
@@ -59,6 +79,7 @@ public class RESTEmployees {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response insertEmployee(Employee employee) {
+        verifier.filter(request);
         return service.insertEmployee(employee);
     }
 
@@ -74,6 +95,7 @@ public class RESTEmployees {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateEmployee(@PathParam("id") int id, Employee employee) {
+        verifier.filter(request);
         return service.updateEmployee(id, employee);
     }
 
@@ -87,6 +109,7 @@ public class RESTEmployees {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteEmployee(@PathParam("id") int id) {
+        verifier.filter(request);
         return service.deleteEmployee(id);
     }
 }

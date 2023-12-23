@@ -19,7 +19,7 @@ jar {
 war {
     archiveBaseName.set('rest')
     archiveVersion.set('')
-    destinationDirectory  = file("C:\\apache-tomcat-10.1.16\\webapps")
+    destinationDirectory  = file("C:\\tomcat\\webapps")
 }
 
 repositories {
@@ -34,6 +34,9 @@ dependencies {
 
     // Log4j
     implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.22.0'
+
+    // SLF4J Binder
+    implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.22.0'
 
     // HikariCP
     implementation 'com.zaxxer:HikariCP:4.0.3'
