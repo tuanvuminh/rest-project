@@ -29,7 +29,7 @@ public class RESTEmployees {
      * HttpServletRequest for accessing client's request details.
      */
     @Context
-    private HttpServletRequest request;
+    HttpServletRequest request;
 
     /**
      * Service for REST Employees interface.
@@ -51,7 +51,6 @@ public class RESTEmployees {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getEmployees() {
-        verifier.filter(request);
         return service.getEmployees();
     }
 
@@ -65,7 +64,6 @@ public class RESTEmployees {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getEmployee(@PathParam("id") int id) {
-        verifier.filter(request);
         return service.getEmployee(id);
     }
 
@@ -79,7 +77,6 @@ public class RESTEmployees {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response insertEmployee(Employee employee) {
-        verifier.filter(request);
         return service.insertEmployee(employee);
     }
 
@@ -95,7 +92,6 @@ public class RESTEmployees {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateEmployee(@PathParam("id") int id, Employee employee) {
-        verifier.filter(request);
         return service.updateEmployee(id, employee);
     }
 
@@ -109,7 +105,6 @@ public class RESTEmployees {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteEmployee(@PathParam("id") int id) {
-        verifier.filter(request);
         return service.deleteEmployee(id);
     }
 }

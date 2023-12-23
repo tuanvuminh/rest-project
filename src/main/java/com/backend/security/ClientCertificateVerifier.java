@@ -22,19 +22,14 @@ public class ClientCertificateVerifier {
 
     public void filter(HttpServletRequest request) {
 
-        try {
-            X509Certificate cert = (X509Certificate) request.getAttribute(X509_CERTIFICATE);
-            LOG.debug("Retrieved certificate: {}", cert);
+        X509Certificate cert = (X509Certificate) request.getAttribute(X509_CERTIFICATE);
+        LOG.debug("Retrieved certificate: {}", cert);
 
-            if (cert != null && validateCertificate(cert)) {
-                LOG.debug("Certificate is valid.");
-            } else {
-                LOG.debug("Certificate is not valid.");
-                throw new WebApplicationException("The provided certificate is not valid.", Response.Status.UNAUTHORIZED);
-            }
-        } catch (Exception e) {
-            LOG.error("Error during certificate verification: {}", e.getMessage());
-            throw new WebApplicationException("Error during certificate verification.", Response.Status.INTERNAL_SERVER_ERROR);
+        if (cert != null && validateCertificate(cert)) {
+            LOG.debug("Certificate is valid.");
+        } else {
+            LOG.debug("Certificate is not valid.");
+            throw new WebApplicationException("The provided certificate is not valid.", Response.Status.UNAUTHORIZED);
         }
     }
 
