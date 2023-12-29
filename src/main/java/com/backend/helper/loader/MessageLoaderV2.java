@@ -25,9 +25,9 @@ public class MessageLoaderV2 {
      * Retrieves the message associated with the given key from the resource bundle.
      *
      * @param key The key representing the message in the resource bundle
-     * @return The message associated with the key, or an empty string if the key is not found
+     * @return The message associated with the key
      */
-    public String get(RESTMessages key){
+    public String getMessage(RESTMessages key){
         return bundle.getString(String.valueOf(key));
     }
 }

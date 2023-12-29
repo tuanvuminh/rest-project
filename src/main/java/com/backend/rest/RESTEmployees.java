@@ -12,9 +12,6 @@ import jakarta.ws.rs.core.Response;
 import com.backend.model.Employee;
 import com.backend.service.interfaces.IRESTEmployeesService;
 
-import java.io.IOException;
-import java.security.cert.X509Certificate;
-
 /**
  * REST interface for managing employee data.
  * <p>

@@ -3,7 +3,7 @@ package com.backend.helper.loader;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import static com.backend.consts.Constants.*;
+import static com.backend.consts.Constants.BUNDLE_MESSAGES;
 
 /**
  * Enum representing messages for REST operations.
@@ -12,6 +12,7 @@ import static com.backend.consts.Constants.*;
  * of various REST operations related to employee management.
  */
 public enum MessageLoaderV3 {
+
     SUCCESSFUL_SEARCH_EMPLOYEES,
     SUCCESSFUL_DETAIL_EMPLOYEE,
     SUCCESSFUL_CREATION_EMPLOYEE,
