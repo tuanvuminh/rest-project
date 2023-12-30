@@ -27,7 +27,7 @@ public enum MessageLoaderV3 {
     ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_MESSAGES, Locale.ENGLISH);
 
     /**
-     * Gets the message associated with the enum constant.
+     * Retrieves the message associated with the enum from the resource bundle.
      *
      * @return The message associated with the enum constant.
      */
