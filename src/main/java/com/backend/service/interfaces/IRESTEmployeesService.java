@@ -16,7 +16,7 @@ public interface IRESTEmployeesService {
      *
      * @return JSON response containing the list of employees
      */
-    Response getEmployees() throws SQLException, RESTException;
+    Response getEmployees() throws RESTException;
 
     /**
      * Retrieves an employee with the specified ID.
@@ -24,7 +24,7 @@ public interface IRESTEmployeesService {
      * @param id ID of the employee to retrieve
      * @return JSON response containing the employee information
      */
-    Response getEmployee(int id) throws SQLException, RESTException;
+    Response getEmployee(int id) throws RESTException;
 
     /**
      * Inserts an employee into the system.
@@ -32,7 +32,7 @@ public interface IRESTEmployeesService {
      * @param employee Employee to be inserted
      * @return JSON response from the server indicating success or failure
      */
-    Response insertEmployee(Employee employee) throws SQLException, RESTException;
+    Response insertEmployee(Employee employee) throws RESTException;
 
     /**
      * Updates an employee with the given ID.
@@ -41,7 +41,7 @@ public interface IRESTEmployeesService {
      * @param employee Updated employee object
      * @return JSON response from the server indicating success or failure
      */
-    Response updateEmployee(int id, Employee employee) throws SQLException, RESTException;
+    Response updateEmployee(int id, Employee employee) throws RESTException;
 
     /**
      * Deletes an employee with the given ID.
@@ -49,5 +49,5 @@ public interface IRESTEmployeesService {
      * @param id ID of the employee to be deleted
      * @return JSON response from the server indicating success or failure
      */
-    Response deleteEmployee(int id) throws SQLException, RESTException;
+    Response deleteEmployee(int id) throws RESTException;
 }

@@ -50,7 +50,7 @@ public class RESTEmployees {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getEmployees() throws SQLException, RESTException {
+    public Response getEmployees() throws RESTException {
         return service.getEmployees();
     }
 
@@ -63,7 +63,7 @@ public class RESTEmployees {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getEmployee(@PathParam("id") int id) throws SQLException, RESTException {
+    public Response getEmployee(@PathParam("id") int id) throws RESTException {
         return service.getEmployee(id);
     }
 
@@ -76,7 +76,7 @@ public class RESTEmployees {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response insertEmployee(Employee employee) throws SQLException, RESTException {
+    public Response insertEmployee(Employee employee) throws RESTException {
         return service.insertEmployee(employee);
     }
 
@@ -91,7 +91,7 @@ public class RESTEmployees {
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateEmployee(@PathParam("id") int id, Employee employee) throws SQLException, RESTException {
+    public Response updateEmployee(@PathParam("id") int id, Employee employee) throws RESTException {
         return service.updateEmployee(id, employee);
     }
 
@@ -104,7 +104,7 @@ public class RESTEmployees {
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteEmployee(@PathParam("id") int id) throws SQLException, RESTException {
+    public Response deleteEmployee(@PathParam("id") int id) throws RESTException {
         return service.deleteEmployee(id);
     }
 }
