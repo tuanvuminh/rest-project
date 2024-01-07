@@ -1,5 +1,6 @@
-package com.backend.helper.adapter;
+package com.backend.service.helpers.adapter;
 
+import com.backend.exception.RESTException;
 import com.backend.model.Employee;
 import com.backend.service.services.EmployeesService;
 
@@ -12,9 +13,9 @@ import java.util.List;
  * interacting with employee-related operations. Clients can use the methods in this class without directly
  * interacting with the internal details of EmployeesService.
  */
-public class EmployeesServiceAdapter {
+public class ServiceAdapter {
 
-    private EmployeesServiceAdapter() {
+    private ServiceAdapter() {
         super();
     }
 
@@ -25,23 +26,23 @@ public class EmployeesServiceAdapter {
         return new EmployeesService();
     }
 
-    public static List<Employee> getEmployees() {
+    public static List<Employee> getEmployees() throws RESTException {
         return getService().getEmployees();
     }
 
-    public static Employee getEmployee(int id) {
+    public static Employee getEmployee(int id) throws RESTException {
         return getService().getEmployee(id);
     }
 
-    public static Integer insertEmployee(Employee employee) {
+    public static Integer insertEmployee(Employee employee) throws RESTException {
         return getService().insertEmployee(employee);
     }
 
-    public static Integer updateEmployee(int id, Employee employee) {
+    public static Integer updateEmployee(int id, Employee employee) throws RESTException {
         return getService().updateEmployee(id, employee);
     }
 
-    public static Integer deleteEmployee(int id) {
+    public static Integer deleteEmployee(int id) throws RESTException {
         return getService().deleteEmployee(id);
     }
 }

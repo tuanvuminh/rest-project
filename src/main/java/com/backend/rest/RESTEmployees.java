@@ -1,5 +1,6 @@
 package com.backend.rest;
 
+import com.backend.exception.RESTException;
 import com.backend.security.ClientCertificateVerifier;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
@@ -12,9 +13,11 @@ import jakarta.ws.rs.core.Response;
 import com.backend.model.Employee;
 import com.backend.service.interfaces.IRESTEmployeesService;
 
+import java.sql.SQLException;
+
 /**
  * REST interface for managing employee data.
- * <p>
+ *
  * This class provides endpoints for retrieving, inserting, updating, and deleting employee information.
  */
 @Named
@@ -47,7 +50,7 @@ public class RESTEmployees {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getEmployees() {
+    public Response getEmployees() throws SQLException, RESTException {
         return service.getEmployees();
     }
 
@@ -60,7 +63,7 @@ public class RESTEmployees {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getEmployee(@PathParam("id") int id) {
+    public Response getEmployee(@PathParam("id") int id) throws SQLException, RESTException {
         return service.getEmployee(id);
     }
 
@@ -73,7 +76,7 @@ public class RESTEmployees {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response insertEmployee(Employee employee) {
+    public Response insertEmployee(Employee employee) throws SQLException, RESTException {
         return service.insertEmployee(employee);
     }
 
@@ -88,7 +91,7 @@ public class RESTEmployees {
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateEmployee(@PathParam("id") int id, Employee employee) {
+    public Response updateEmployee(@PathParam("id") int id, Employee employee) throws SQLException, RESTException {
         return service.updateEmployee(id, employee);
     }
 
@@ -101,7 +104,7 @@ public class RESTEmployees {
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteEmployee(@PathParam("id") int id) {
+    public Response deleteEmployee(@PathParam("id") int id) throws SQLException, RESTException {
         return service.deleteEmployee(id);
     }
 }

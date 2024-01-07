@@ -1,6 +1,7 @@
 package com.backend.service.services;
 
-import com.backend.helper.adapter.EmployeesServiceAdapter;
+import com.backend.exception.RESTException;
+import com.backend.service.helpers.adapter.ServiceAdapter;
 import com.backend.model.Employee;
 import com.backend.model.RESTResponse;
 import jakarta.enterprise.context.RequestScoped;
@@ -12,7 +13,7 @@ import com.backend.service.interfaces.IRESTEmployeesService;
 
 import java.util.List;
 
-import static com.backend.helper.loader.MessageLoaderV3.*;
+import static com.backend.service.helpers.loader.MessageLoaderV3.*;
 
 /**
  * Service implementation for managing employee data through REST operations.
@@ -29,12 +30,12 @@ public class RESTEmployeesService implements IRESTEmployeesService {
      * @inheritDoc
      */
     @Override
-    public Response getEmployees() {
+    public Response getEmployees() throws RESTException {
 
         LOG.debug("Received getEmployees request.");
         RESTResponse response = new RESTResponse();
 
-        List<Employee> employees = EmployeesServiceAdapter.getEmployees();
+        List<Employee> employees = ServiceAdapter.getEmployees();
 
         if (employees == null) {
             LOG.debug("Employees not found.");
@@ -55,12 +56,12 @@ public class RESTEmployeesService implements IRESTEmployeesService {
      * @inheritDoc
      */
     @Override
-    public Response getEmployee(int id) {
+    public Response getEmployee(int id) throws RESTException {
 
         LOG.debug("Received id: {}", id);
         RESTResponse response = new RESTResponse();
 
-        Employee employee = EmployeesServiceAdapter.getEmployee(id);
+        Employee employee = ServiceAdapter.getEmployee(id);
 
         if (employee == null) {
             LOG.debug("Employee not found.");
@@ -78,19 +79,19 @@ public class RESTEmployeesService implements IRESTEmployeesService {
      * @inheritDoc
      */
     @Override
-    public Response insertEmployee(Employee employee) {
+    public Response insertEmployee(Employee employee) throws RESTException {
 
         LOG.debug("Received insertEmployee request with body: {}", employee);
         RESTResponse response = new RESTResponse();
 
-        Integer id = EmployeesServiceAdapter.insertEmployee(employee);
+        Integer id = ServiceAdapter.insertEmployee(employee);
 
         if (id == null) {
             LOG.debug("Employee not created.");
             response.setMessageText(UNSUCCESSFUL_CREATION_EMPLOYEE.getMessage());
             return Response.status(Response.Status.BAD_REQUEST).entity(response).build();
         }
-        Employee newEmployee = EmployeesServiceAdapter.getEmployee(id);
+        Employee newEmployee = ServiceAdapter.getEmployee(id);
         LOG.debug("Created new employee: {}", newEmployee);
 
         response.addDataItem(newEmployee);
@@ -102,19 +103,19 @@ public class RESTEmployeesService implements IRESTEmployeesService {
      * @inheritDoc
      */
     @Override
-    public Response updateEmployee(int id, Employee employee) {
+    public Response updateEmployee(int id, Employee employee) throws RESTException {
 
         LOG.debug("Received updateEmployee request with id: {}.", id);
         RESTResponse response = new RESTResponse();
 
-        Integer rows = EmployeesServiceAdapter.updateEmployee(id, employee);
+        Integer rows = ServiceAdapter.updateEmployee(id, employee);
 
         if (rows == null) {
             LOG.debug("Employee not updated.");
             response.setMessageText(UNSUCCESSFUL_UPDATE_EMPLOYEE.getMessage());
             return Response.status(Response.Status.BAD_REQUEST).entity(response).build();
         }
-        Employee updatedEmployee = EmployeesServiceAdapter.getEmployee(id);
+        Employee updatedEmployee = ServiceAdapter.getEmployee(id);
         LOG.debug("Updated employee: {}", updatedEmployee);
 
         response.addDataItem(updatedEmployee);
@@ -126,12 +127,12 @@ public class RESTEmployeesService implements IRESTEmployeesService {
      * @inheritDoc
      */
     @Override
-    public Response deleteEmployee(int id) {
+    public Response deleteEmployee(int id) throws RESTException {
 
         LOG.debug("Received deleteEmployee request with id: {}", id);
         RESTResponse response = new RESTResponse();
 
-        Integer rows = EmployeesServiceAdapter.deleteEmployee(id);
+        Integer rows = ServiceAdapter.deleteEmployee(id);
 
         if (rows == null) {
             LOG.debug("Employee not deleted.");

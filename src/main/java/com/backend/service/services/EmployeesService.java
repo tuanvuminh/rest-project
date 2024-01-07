@@ -1,6 +1,7 @@
 package com.backend.service.services;
 
 import com.backend.db.DBConnectionV2;
+import com.backend.exception.RESTException;
 import com.backend.model.Employee;
 import com.backend.service.interfaces.IEmployeesService;
 
@@ -21,7 +22,7 @@ public class EmployeesService implements IEmployeesService {
      * @inheritDoc
      */
     @Override
-    public List<Employee> getEmployees() {
+    public List<Employee> getEmployees() throws RESTException {
 
         String sql = "SELECT * FROM employees";
 
@@ -44,11 +45,11 @@ public class EmployeesService implements IEmployeesService {
                 );
                 employees.add(employee);
             }
+
             return employees;
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
+            throw new RESTException("Failed to retrieve employees. " + e.getLocalizedMessage());
         }
     }
 
@@ -56,7 +57,7 @@ public class EmployeesService implements IEmployeesService {
      * @inheritDoc
      */
     @Override
-    public Employee getEmployee(int id) {
+    public Employee getEmployee(int id) throws RESTException {
 
         String sql = "SELECT * FROM employees WHERE id = ?";
 
@@ -81,11 +82,11 @@ public class EmployeesService implements IEmployeesService {
                     rs.getString("department"),
                     rs.getInt("salary")
             );
+
             return employee;
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
+            throw new RESTException("Failed to retrieve employee. " + e.getLocalizedMessage());
         }
     }
 
@@ -93,15 +94,14 @@ public class EmployeesService implements IEmployeesService {
      * @inheritDoc
      */
     @Override
-    public Integer insertEmployee(Employee employee) {
+    public Integer insertEmployee(Employee employee) throws RESTException {
 
         String sql = "INSERT INTO employees (first_name, last_name, email, department, salary) VALUES (?, ?, ?, ?, ?)";
 
-        try (Connection connection = DBConnectionV2.getConnection()) {
+        try (Connection connection = DBConnectionV2.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setFetchSize(1);
-
             ps.setString(INDEX_ONE, employee.getFirstName());
             ps.setString(INDEX_TWO, employee.getLastName());
             ps.setString(INDEX_THREE, employee.getEmail());
@@ -111,16 +111,18 @@ public class EmployeesService implements IEmployeesService {
             int rows = ps.executeUpdate();
 
             if (rows > 0) {
+
                 ResultSet generatedKeys = ps.getGeneratedKeys();
+
                 if (generatedKeys.next()) {
                     return generatedKeys.getInt(INDEX_ONE);
                 }
             }
+
             return null;
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
+            throw new RESTException("Failed to insert employee or retrieve generated key. " + e.getLocalizedMessage());
         }
     }
 
@@ -128,14 +130,15 @@ public class EmployeesService implements IEmployeesService {
      * @inheritDoc
      */
     @Override
-    public Integer updateEmployee(int id, Employee employee) {
+    public Integer updateEmployee(int id, Employee employee) throws RESTException {
 
         String sqlSelect = "SELECT id FROM employees WHERE id = ?";
         String sqlUpdate = "UPDATE employees SET first_name = ?, last_name = ?, email = ?, department = ?, salary = ? WHERE id = ?";
 
-        try (Connection connection = DBConnectionV2.getConnection()) {
+        try (Connection connection = DBConnectionV2.getConnection();
+             PreparedStatement select = connection.prepareStatement(sqlSelect);
+             PreparedStatement update = connection.prepareStatement(sqlUpdate)) {
 
-            PreparedStatement select = connection.prepareStatement(sqlSelect);
             select.setFetchSize(1);
             select.setInt(INDEX_ONE, id);
             ResultSet resultSet = select.executeQuery();
@@ -143,7 +146,6 @@ public class EmployeesService implements IEmployeesService {
             if (!resultSet.next()) {
                 return null;
             }
-            PreparedStatement update = connection.prepareStatement(sqlUpdate);
 
             update.setFetchSize(1);
             update.setString(INDEX_ONE, employee.getFirstName());
@@ -151,12 +153,12 @@ public class EmployeesService implements IEmployeesService {
             update.setString(INDEX_THREE, employee.getEmail());
             update.setString(INDEX_FOUR, employee.getDepartment());
             update.setInt(INDEX_FIVE, employee.getSalary());
+            update.setInt(INDEX_SIX, id);
 
             return update.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
+            throw new RESTException("Failed to update employee. " + e.getLocalizedMessage());
         }
     }
 
@@ -164,14 +166,15 @@ public class EmployeesService implements IEmployeesService {
      * @inheritDoc
      */
     @Override
-    public Integer deleteEmployee(int id) {
+    public Integer deleteEmployee(int id) throws RESTException {
 
         String sqlSelect = "SELECT id FROM employees WHERE id = ?";
         String sqlDelete = "DELETE FROM employees WHERE id = ?";
 
-        try (Connection connection = DBConnectionV2.getConnection()) {
+        try (Connection connection = DBConnectionV2.getConnection();
+             PreparedStatement select = connection.prepareStatement(sqlSelect);
+             PreparedStatement delete = connection.prepareStatement(sqlDelete)) {
 
-            PreparedStatement select = connection.prepareStatement(sqlSelect);
             select.setFetchSize(1);
             select.setInt(INDEX_ONE, id);
             ResultSet resultSet = select.executeQuery();
@@ -179,7 +182,6 @@ public class EmployeesService implements IEmployeesService {
             if (!resultSet.next()) {
                 return null;
             }
-            PreparedStatement delete = connection.prepareStatement(sqlDelete);
 
             delete.setFetchSize(1);
             delete.setInt(INDEX_ONE, id);
@@ -187,8 +189,7 @@ public class EmployeesService implements IEmployeesService {
             return delete.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
+            throw new RESTException("Failed to delete employee. " + e.getLocalizedMessage());
         }
     }
 }

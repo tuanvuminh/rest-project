@@ -1,4 +1,4 @@
-package com.backend.helper.loader;
+package com.backend.service.helpers.loader;
 
 import com.backend.consts.RESTMessages;
 import jakarta.enterprise.context.RequestScoped;

@@ -1,7 +1,10 @@
 package com.backend.service.interfaces;
 
+import com.backend.exception.RESTException;
 import com.backend.model.Employee;
 import jakarta.ws.rs.core.Response;
+
+import java.sql.SQLException;
 
 /**
  * Interface for REST operations related to employees.
@@ -13,7 +16,7 @@ public interface IRESTEmployeesService {
      *
      * @return JSON response containing the list of employees
      */
-    Response getEmployees();
+    Response getEmployees() throws SQLException, RESTException;
 
     /**
      * Retrieves an employee with the specified ID.
@@ -21,7 +24,7 @@ public interface IRESTEmployeesService {
      * @param id ID of the employee to retrieve
      * @return JSON response containing the employee information
      */
-    Response getEmployee(int id);
+    Response getEmployee(int id) throws SQLException, RESTException;
 
     /**
      * Inserts an employee into the system.
@@ -29,7 +32,7 @@ public interface IRESTEmployeesService {
      * @param employee Employee to be inserted
      * @return JSON response from the server indicating success or failure
      */
-    Response insertEmployee(Employee employee);
+    Response insertEmployee(Employee employee) throws SQLException, RESTException;
 
     /**
      * Updates an employee with the given ID.
@@ -38,7 +41,7 @@ public interface IRESTEmployeesService {
      * @param employee Updated employee object
      * @return JSON response from the server indicating success or failure
      */
-    Response updateEmployee(int id, Employee employee);
+    Response updateEmployee(int id, Employee employee) throws SQLException, RESTException;
 
     /**
      * Deletes an employee with the given ID.
@@ -46,5 +49,5 @@ public interface IRESTEmployeesService {
      * @param id ID of the employee to be deleted
      * @return JSON response from the server indicating success or failure
      */
-    Response deleteEmployee(int id);
+    Response deleteEmployee(int id) throws SQLException, RESTException;
 }
