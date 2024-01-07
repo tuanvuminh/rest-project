@@ -12,17 +12,23 @@ import static com.backend.consts.Constants.BUNDLE_MESSAGES;
  * of various REST operations related to employee management.
  */
 public enum MessageLoaderV3 {
+    SUCCESSFUL_SEARCH_EMPLOYEES("List of employees."),
+    SUCCESSFUL_DETAIL_EMPLOYEE("The employee was found by the given ID."),
+    SUCCESSFUL_CREATION_EMPLOYEE("Employee was successfully created."),
+    SUCCESSFUL_UPDATE_EMPLOYEE("Employee was successfully updated."),
+    SUCCESSFUL_DELETE("The specified resource data was successfully deleted."),
+    UNSUCCESSFUL_SEARCH_EMPLOYEES("Could not get list of employees."),
+    UNSUCCESSFUL_DETAIL_EMPLOYEE("The employee was not found by the given ID."),
+    UNSUCCESSFUL_CREATION_EMPLOYEE("Employee was not created."),
+    UNSUCCESSFUL_UPDATE_EMPLOYEE("Employee was not updated."),
+    UNSUCCESSFUL_DELETE("The specified resource data could not be deleted."),
 
-    SUCCESSFUL_SEARCH_EMPLOYEES,
-    SUCCESSFUL_DETAIL_EMPLOYEE,
-    SUCCESSFUL_CREATION_EMPLOYEE,
-    SUCCESSFUL_UPDATE_EMPLOYEE,
-    SUCCESSFUL_DELETE,
-    UNSUCCESSFUL_SEARCH_EMPLOYEES,
-    UNSUCCESSFUL_DETAIL_EMPLOYEE,
-    UNSUCCESSFUL_CREATION_EMPLOYEE,
-    UNSUCCESSFUL_UPDATE_EMPLOYEE,
-    UNSUCCESSFUL_DELETE;
+    ;
+    MessageLoaderV3() {
+    }
+
+    MessageLoaderV3(String description) {
+    }
 
     ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_MESSAGES, Locale.ENGLISH);
 
@@ -31,7 +37,7 @@ public enum MessageLoaderV3 {
      *
      * @return The message associated with the enum constant.
      */
-    public String getMessage() {
+    public String get() {
         return bundle.getString(this.name());
     }
 }

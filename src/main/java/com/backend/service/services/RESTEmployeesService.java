@@ -39,7 +39,7 @@ public class RESTEmployeesService implements IRESTEmployeesService {
 
         if (employees == null) {
             LOG.debug("Employees not found.");
-            response.setMessageText(UNSUCCESSFUL_SEARCH_EMPLOYEES.getMessage());
+            response.setMessageText(UNSUCCESSFUL_SEARCH_EMPLOYEES.get());
             return Response.status(Response.Status.NOT_FOUND).entity(response).build();
         }
 
@@ -48,7 +48,7 @@ public class RESTEmployeesService implements IRESTEmployeesService {
         }
         LOG.debug("Found employees: {}", employees);
 
-        response.setMessageText(SUCCESSFUL_SEARCH_EMPLOYEES.getMessage());
+        response.setMessageText(SUCCESSFUL_SEARCH_EMPLOYEES.get());
         return Response.status(Response.Status.OK).entity(response).build();
     }
 
@@ -65,13 +65,13 @@ public class RESTEmployeesService implements IRESTEmployeesService {
 
         if (employee == null) {
             LOG.debug("Employee not found.");
-            response.setMessageText(UNSUCCESSFUL_DETAIL_EMPLOYEE.getMessage());
+            response.setMessageText(UNSUCCESSFUL_DETAIL_EMPLOYEE.get());
             return Response.status(Response.Status.NOT_FOUND).entity(response).build();
         }
         LOG.debug("Found employee: {}", employee);
 
         response.addDataItem(employee);
-        response.setMessageText(SUCCESSFUL_DETAIL_EMPLOYEE.getMessage());
+        response.setMessageText(SUCCESSFUL_DETAIL_EMPLOYEE.get());
         return Response.status(Response.Status.OK).entity(response).build();
     }
 
@@ -88,14 +88,14 @@ public class RESTEmployeesService implements IRESTEmployeesService {
 
         if (id == null) {
             LOG.debug("Employee not created.");
-            response.setMessageText(UNSUCCESSFUL_CREATION_EMPLOYEE.getMessage());
+            response.setMessageText(UNSUCCESSFUL_CREATION_EMPLOYEE.get());
             return Response.status(Response.Status.BAD_REQUEST).entity(response).build();
         }
         Employee newEmployee = ServiceAdapter.getEmployee(id);
         LOG.debug("Created new employee: {}", newEmployee);
 
         response.addDataItem(newEmployee);
-        response.setMessageText(SUCCESSFUL_CREATION_EMPLOYEE.getMessage());
+        response.setMessageText(SUCCESSFUL_CREATION_EMPLOYEE.get());
         return Response.status(Response.Status.OK).entity(response).build();
     }
 
@@ -112,14 +112,14 @@ public class RESTEmployeesService implements IRESTEmployeesService {
 
         if (rows == null) {
             LOG.debug("Employee not updated.");
-            response.setMessageText(UNSUCCESSFUL_UPDATE_EMPLOYEE.getMessage());
+            response.setMessageText(UNSUCCESSFUL_UPDATE_EMPLOYEE.get());
             return Response.status(Response.Status.BAD_REQUEST).entity(response).build();
         }
         Employee updatedEmployee = ServiceAdapter.getEmployee(id);
         LOG.debug("Updated employee: {}", updatedEmployee);
 
         response.addDataItem(updatedEmployee);
-        response.setMessageText(SUCCESSFUL_UPDATE_EMPLOYEE.getMessage());
+        response.setMessageText(SUCCESSFUL_UPDATE_EMPLOYEE.get());
         return Response.status(Response.Status.OK).entity(response).build();
     }
 
@@ -136,12 +136,12 @@ public class RESTEmployeesService implements IRESTEmployeesService {
 
         if (rows == null) {
             LOG.debug("Employee not deleted.");
-            response.setMessageText(UNSUCCESSFUL_DELETE.getMessage());
+            response.setMessageText(UNSUCCESSFUL_DELETE.get());
             return Response.status(Response.Status.NOT_FOUND).entity(response).build();
         }
         LOG.debug("Employee deleted.");
 
-        response.setMessageText(SUCCESSFUL_DELETE.getMessage());
+        response.setMessageText(SUCCESSFUL_DELETE.get());
         return Response.status(Response.Status.OK).entity(response).build();
     }
 }

@@ -7,13 +7,17 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import com.backend.model.Employee;
 import com.backend.service.interfaces.IRESTEmployeesService;
 
+import java.security.cert.X509Certificate;
 import java.sql.SQLException;
+
+import static com.backend.consts.Constants.X509_CERTIFICATE;
 
 /**
  * REST interface for managing employee data.
@@ -29,7 +33,7 @@ public class RESTEmployees {
      * HttpServletRequest for accessing client's request details.
      */
     @Context
-    HttpServletRequest request;
+    ContainerRequestContext request;
 
     /**
      * Service for REST Employees interface.
@@ -51,6 +55,8 @@ public class RESTEmployees {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getEmployees() throws RESTException {
+        X509Certificate[] clientCertificates = (X509Certificate[]) request.getProperty("jakarta.servlet.request.X509Certificate");
+        System.out.println(clientCertificates.length);
         return service.getEmployees();
     }
 

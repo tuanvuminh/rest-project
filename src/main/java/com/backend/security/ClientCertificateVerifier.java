@@ -1,18 +1,12 @@
 package com.backend.security;
 
-import com.backend.model.RESTResponse;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.inject.Default;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.ws.rs.WebApplicationException;
-import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.container.ContainerRequestContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.security.cert.X509Certificate;
-import java.util.Date;
-
-import static com.backend.consts.Constants.X509_CERTIFICATE;
 
 @Default
 @RequestScoped
@@ -20,30 +14,16 @@ public class ClientCertificateVerifier {
 
     private static final Logger LOG = LogManager.getLogger(ClientCertificateVerifier.class);
 
-    public void filter(HttpServletRequest request) {
+    public void filter(ContainerRequestContext request) {
 
-        X509Certificate cert = (X509Certificate) request.getAttribute(X509_CERTIFICATE);
-        LOG.debug("Retrieved certificate: {}", cert);
+        X509Certificate[] clientCertificates = (X509Certificate[]) request.getProperty("jakarta.servlet.request.X509Certificate");
 
-        if (cert != null && validateCertificate(cert)) {
-            LOG.debug("Certificate is valid.");
-        } else {
-            LOG.debug("Certificate is not valid.");
-            throw new WebApplicationException("The provided certificate is not valid.", Response.Status.UNAUTHORIZED);
-        }
-    }
+        X509Certificate clientCertificate = clientCertificates[0];
 
-    private boolean validateCertificate(X509Certificate certificate) {
-        try {
-            Date currentDateTime = new Date();
-            certificate.checkValidity(currentDateTime);
+        String subjectDN = clientCertificate.getSubjectX500Principal().getName();
+        String issuerDN = clientCertificate.getIssuerX500Principal().getName();
 
-            String subject = certificate.getSubjectX500Principal().getName();
-            return subject.equalsIgnoreCase("server");
-
-        } catch (Exception e) {
-            LOG.error("Certificate validation failed: {}", e.getMessage(), e);
-            return false;
-        }
+        System.out.println(subjectDN);
+        System.out.println(issuerDN);
     }
 }
