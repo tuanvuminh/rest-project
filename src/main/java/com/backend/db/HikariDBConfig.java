@@ -29,7 +29,7 @@ public class HikariDBConfig {
      *
      * @return The HikariDataSource instance configured for database connections
      */
-    public static synchronized HikariDataSource getDataSource() {
+    public static HikariDataSource getDataSource() {
 
         if (dataSource == null) {
             HikariConfig config = loadConfiguration();
