@@ -49,7 +49,7 @@ public class CertificateValidator implements ContainerRequestFilter {
 
         X509Certificate clientCertificate = certificates[0];
         LOG.debug("Retrieved certificate: {}", clientCertificate.getSubjectX500Principal());
-        certificates[0].checkValidity(new Date());
+        clientCertificate.checkValidity(new Date());
 
         return Objects.requireNonNull(getCNValueFromX500Principal(clientCertificate.getSubjectX500Principal()))
                 .equalsIgnoreCase("client");
