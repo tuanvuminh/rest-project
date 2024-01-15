@@ -1,27 +1,17 @@
 package com.backend.rest;
 
 import com.backend.exception.RESTException;
-import com.backend.security.ClientCertificateVerifier;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.container.ContainerRequestContext;
-import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import com.backend.model.Employee;
 import com.backend.service.interfaces.IRESTEmployeesService;
 
-import java.security.cert.X509Certificate;
-import java.sql.SQLException;
-
-import static com.backend.consts.Constants.X509_CERTIFICATE;
-
 /**
  * REST interface for managing employee data.
- *
  * This class provides endpoints for retrieving, inserting, updating, and deleting employee information.
  */
 @Named
@@ -30,22 +20,10 @@ import static com.backend.consts.Constants.X509_CERTIFICATE;
 public class RESTEmployees {
 
     /**
-     * HttpServletRequest for accessing client's request details.
-     */
-    @Context
-    ContainerRequestContext request;
-
-    /**
      * Service for REST Employees interface.
      */
     @Inject
     IRESTEmployeesService service;
-
-    /**
-     * ClientCertificateVerifier for verifying client certificates.
-     */
-    @Inject
-    ClientCertificateVerifier verifier;
 
     /**
      * Method maps the GET method. Retrieves all employees.
@@ -55,8 +33,6 @@ public class RESTEmployees {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getEmployees() throws RESTException {
-        X509Certificate[] clientCertificates = (X509Certificate[]) request.getProperty("jakarta.servlet.request.X509Certificate");
-        System.out.println(clientCertificates.length);
         return service.getEmployees();
     }
 

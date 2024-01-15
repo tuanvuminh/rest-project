@@ -43,8 +43,4 @@ public class RESTResponse {
                 "\", data = " + data +
                 '}';
     }
-
-    public String toErrorResponse(){
-        return "ERROR: " + messageText;
-    }
 }
