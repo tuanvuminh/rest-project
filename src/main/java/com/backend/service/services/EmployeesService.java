@@ -45,7 +45,6 @@ public class EmployeesService implements IEmployeesService {
                 );
                 employees.add(employee);
             }
-
             return employees;
 
         } catch (SQLException e) {
@@ -64,7 +63,6 @@ public class EmployeesService implements IEmployeesService {
         try (Connection connection = DBConnectionV2.getConnection()) {
 
             PreparedStatement ps = connection.prepareStatement(sql);
-
             ps.setFetchSize(1);
             ps.setInt(INDEX_ONE, id);
 
@@ -82,7 +80,6 @@ public class EmployeesService implements IEmployeesService {
                     rs.getString("department"),
                     rs.getInt("salary")
             );
-
             return employee;
 
         } catch (SQLException e) {
@@ -111,14 +108,12 @@ public class EmployeesService implements IEmployeesService {
             int rows = ps.executeUpdate();
 
             if (rows > 0) {
-
                 ResultSet generatedKeys = ps.getGeneratedKeys();
 
                 if (generatedKeys.next()) {
                     return generatedKeys.getInt(INDEX_ONE);
                 }
             }
-
             return null;
 
         } catch (SQLException e) {
@@ -146,7 +141,6 @@ public class EmployeesService implements IEmployeesService {
             if (!resultSet.next()) {
                 return null;
             }
-
             update.setFetchSize(1);
             update.setString(INDEX_ONE, employee.getFirstName());
             update.setString(INDEX_TWO, employee.getLastName());
@@ -182,7 +176,6 @@ public class EmployeesService implements IEmployeesService {
             if (!resultSet.next()) {
                 return null;
             }
-
             delete.setFetchSize(1);
             delete.setInt(INDEX_ONE, id);
 
