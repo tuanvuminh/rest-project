@@ -25,6 +25,7 @@ public class EmployeesService implements IEmployeesService {
     public List<Employee> getEmployees() throws RESTException {
 
         String sql = "SELECT * FROM employees";
+        List<Employee> employees = new ArrayList<>();
 
         try (Connection connection = DBConnectionV2.getConnection()) {
 
@@ -32,7 +33,6 @@ public class EmployeesService implements IEmployeesService {
             ps.setFetchSize(1);
 
             ResultSet rs = ps.executeQuery();
-            List<Employee> employees = new ArrayList<>();
 
             while (rs.next()) {
                 Employee employee = new Employee(
@@ -47,7 +47,7 @@ public class EmployeesService implements IEmployeesService {
             }
             return employees;
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new RESTException("Failed to retrieve employees. " + e.getLocalizedMessage());
         }
     }
@@ -82,7 +82,7 @@ public class EmployeesService implements IEmployeesService {
             );
             return employee;
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new RESTException("Failed to retrieve employee. " + e.getLocalizedMessage());
         }
     }
@@ -116,7 +116,7 @@ public class EmployeesService implements IEmployeesService {
             }
             return null;
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new RESTException("Failed to insert employee or retrieve generated key. " + e.getLocalizedMessage());
         }
     }
@@ -151,7 +151,7 @@ public class EmployeesService implements IEmployeesService {
 
             return update.executeUpdate();
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new RESTException("Failed to update employee. " + e.getLocalizedMessage());
         }
     }
@@ -181,7 +181,7 @@ public class EmployeesService implements IEmployeesService {
 
             return delete.executeUpdate();
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new RESTException("Failed to delete employee. " + e.getLocalizedMessage());
         }
     }
