@@ -22,27 +22,27 @@ public class ServiceAdapter {
     /**
      * Returns a new instance of the EmployeesService class.
      */
-    private static EmployeesService getService() {
+    private static EmployeesService getEmployeeService() {
         return new EmployeesService();
     }
 
     public static List<Employee> getEmployees() throws RESTException {
-        return getService().getEmployees();
+        return getEmployeeService().getEmployees();
     }
 
     public static Employee getEmployee(int id) throws RESTException {
-        return getService().getEmployee(id);
+        return getEmployeeService().getEmployee(id);
     }
 
     public static Integer insertEmployee(Employee employee) throws RESTException {
-        return getService().insertEmployee(employee);
+        return getEmployeeService().insertEmployee(employee);
     }
 
     public static Integer updateEmployee(int id, Employee employee) throws RESTException {
-        return getService().updateEmployee(id, employee);
+        return getEmployeeService().updateEmployee(id, employee);
     }
 
     public static Integer deleteEmployee(int id) throws RESTException {
-        return getService().deleteEmployee(id);
+        return getEmployeeService().deleteEmployee(id);
     }
 }
